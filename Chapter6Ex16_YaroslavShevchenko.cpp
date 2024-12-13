@@ -28,7 +28,8 @@ World Series in the time period from 1903 to 2012.
 using namespace std;
 
 string teamName();
-void fileToArray(string arr[], int size);
+void teams();
+void worldSeriesArray(string arr[], int size);
 int winNum(string arr[], int size, string tn);
 
 
@@ -37,11 +38,13 @@ int main()
 {
     const int size = 107; // 106 lines in the txt doc
 
-    string teamsArr[size];
-
-    fileToArray(teamsArr, size);
+    teams();
 
     string tn = teamName();
+
+    string teamsArr[size];
+
+    worldSeriesArray(teamsArr, size);
 
     int wins = winNum(teamsArr, size, tn);
 
@@ -51,9 +54,23 @@ int main()
     else cout << "The team you entered either don't exist or have never wone the World Series" << endl;
 
 
+}
+
+
+void teams() {
+    cout << "List of teams: " << endl;
+    ifstream myFile;
+    myFile.open("Teams.txt");
+    string name;
+    if (myFile.is_open()) {
+        while (getline(myFile, name)) {
+
+            cout << name << "; ";
+        }
+        cout << endl;
+        myFile.close();
+    }
     
-
-
 }
 
 string teamName() {
@@ -63,7 +80,7 @@ string teamName() {
     return teamName;
 }
 
-void fileToArray(string arr[], int size) {
+void worldSeriesArray(string arr[], int size) {
     ifstream myFile;
     myFile.open("WorldSeriesWinners.txt");
     
